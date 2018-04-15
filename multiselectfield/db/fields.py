@@ -55,7 +55,7 @@ class MSFList(list):
         super(MSFList, self).__init__(*args, **kwargs)
 
     def __str__(msgl):
-        l = [msgl.choices.get(int(i)) if i.isdigit() else msgl.choices.get(i) for i in msgl]
+        l = [msgl.choices.get(i) for i in msgl]
         return u', '.join([string_type(s) for s in l])
 
 
