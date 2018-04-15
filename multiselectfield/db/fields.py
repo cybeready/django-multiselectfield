@@ -133,7 +133,15 @@ class MultiSelectField(models.CharField):
         return MultiSelectFormField(**defaults)
 
     def get_prep_value(self, value):
-        return '' if value is None else ",".join(value)
+        if isinstance(value, (tuple, list)):
+            l = []
+            for i in value:
+                if isinstance(i, int):
+                    i = string_type(i)
+                l.append(i)
+        else:
+            l = value
+        return '' if not l else ",".join(l)
 
     def get_db_prep_value(self, value, connection, prepared=False):
         if not prepared and not isinstance(value, string_type):
